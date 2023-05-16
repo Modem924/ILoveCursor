@@ -17,21 +17,32 @@ import Color from "../../Wolfie2D/Utils/Color";
 import MathUtils from "../../Wolfie2D/Utils/MathUtils";
 import Scene from "../../Wolfie2D/Scene/Scene";
 import PlayerActor from "../Actors/PlayerActor";
+import NPCActor from "../Actors/NPCActor";
 import PlayerAI from "../AI/Player/PlayerAI";
+import Pumpkin from "../GameSystems/ItemSystem/Items/pumpkin";
+import IdleBehavior from "../AI/NPC/NPCBehavior/IdleBehavior";
 
 export default class MainScene extends Scene{
     private walls: OrthogonalTilemap;
 
+    private pumpkins: Array<Pumpkin>;
+
     public constructor(viewport: Viewport, sceneManager: SceneManager, renderingManager: RenderingManager, options: Record<string, any>) {
         super(viewport, sceneManager, renderingManager, options);
 
+        this.pumpkins = new Array<Pumpkin>();
         
     }
 
     public override loadScene() {
         // Load the player and enemy spritesheets
         this.load.spritesheet("player", "assets/spritesheets/player.json");
-        //this.load.spritesheet("crow", "assets/spritesheets/crow.json");
+        
+        this.load.object("crow", "assets/data/crow.json");
+        this.load.spritesheet("crow", "assets/spritesheets/crow.json");
+
+        //this.load.object("pumpkin", "assets/data/pumpkin.json");
+        //this.load.image("pumpkin", "assets/sprites/pumpkin.png");
 
         this.load.tilemap("level", "assets/tilemaps/tilemap.json");
     }
@@ -51,6 +62,9 @@ export default class MainScene extends Scene{
         this.viewport.setZoomLevel(2);
         this.initLayers();
         this.initializePlayer();
+        //this.initializeNPCs();
+
+        this.receiver.subscribe("pumpkin");
     }   
     /**
      * @see Scene.updateScene
@@ -69,4 +83,5 @@ export default class MainScene extends Scene{
         player.animation.play("IDLE");
         this.viewport.follow(player);
     }
+
 }
