@@ -15,11 +15,7 @@ import { PlayerInput } from "./hw4/AI/Player/PlayerController";
             {name: PlayerInput.MOVE_UP, keys: ["w"]},
             {name: PlayerInput.MOVE_DOWN, keys: ["s"]},
             {name: PlayerInput.MOVE_LEFT, keys: ["a"]},
-            {name: PlayerInput.MOVE_RIGHT, keys: ["d"]},
-            {name: PlayerInput.PICKUP_ITEM, keys: ["e"]},
-            {name: PlayerInput.DROP_ITEM, keys: ["q"]},
-            {name: "slot1", keys: ["1"]},
-            {name: "slot2", keys: ["2"]},
+            {name: PlayerInput.MOVE_RIGHT, keys: ["d"]}
         ],
         useWebGL: false,                        // Tell the game we want to use webgl
         showDebug: false                      // Whether to show debug messages. You can change this to true if you want
