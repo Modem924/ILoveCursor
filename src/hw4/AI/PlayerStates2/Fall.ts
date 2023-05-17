@@ -1,5 +1,5 @@
 import MathUtils from "../../../Wolfie2D/Utils/MathUtils";
-import { PlayerStates } from "../PlayerController2";
+import { PlayerStates } from "../PlayerController";
 import PlayerState from "./PlayerState";
 
 export default class Fall extends PlayerState {

@@ -31,10 +31,6 @@ export default class Scene3 extends Scene2 {
         // Set the player's spawn
         this.playerSpawn = Scene3.PLAYER_SPAWN;
 
-
-        // Level end size and position
-        this.levelEndPosition = new Vec2(194, 197).mult(this.tilemapScale);
-        this.levelEndHalfSize = new Vec2(32, 32).mult(this.tilemapScale);
     }
 
     /**

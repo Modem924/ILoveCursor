@@ -1,4 +1,4 @@
-import { PlayerStates, PlayerAnimations } from "../PlayerController2";
+import { PlayerStates, PlayerAnimations } from "../PlayerController";
 import Input from "../../../Wolfie2D/Input/Input";
 import { Controls } from "../Controls";
 import PlayerState from "./PlayerState";
