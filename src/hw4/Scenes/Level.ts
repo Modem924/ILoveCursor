@@ -102,7 +102,6 @@ export default abstract class Level extends Scene {
         this.initializeUI();
 
         this.initializeLevelEnds();
-        this.initializeTimer();
         
 
         this.levelTransitionTimer = new Timer(500);

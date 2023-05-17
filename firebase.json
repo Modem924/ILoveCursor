@@ -5,12 +5,9 @@
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
-    ],
-    "redirects": [
-      {
-        "destination": "/dist/index.html",
-        "type": 302
-      }
     ]
+  },
+  "database": {
+    "rules": "database.rules.json"
   }
 }
