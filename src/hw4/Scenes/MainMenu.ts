@@ -6,6 +6,7 @@ import Color from "../../Wolfie2D/Utils/Color";
 import Sprite from "../../Wolfie2D/Nodes/Sprites/Sprite";
 import Level1 from "./Level1";
 import { MenuLayers } from "./MenuLayers";
+import { GameEventType } from "../../Wolfie2D/Events/GameEventType";
 import control from "./control";
 import levelSelect from "./levelSelect";
 import help from "./help";
@@ -14,8 +15,12 @@ import help from "./help";
 
 export default class MainMenu extends Scene {
     private background: Sprite;
+    public static readonly MUSIC_KEY = "MAIN_MENU_MUSIC";
+    public static readonly MUSIC_PATH = "assets/audio/intro.wav";
+
 
     loadScene(): void {
+        this.load.audio(MainMenu.MUSIC_KEY, MainMenu.MUSIC_PATH);
         this.load.image("background", "assets/images/background.png");
         this.load.image("control", "assets/images/control.png");
         this.load.image("help", "assets/images/help.png");
@@ -84,6 +89,7 @@ export default class MainMenu extends Scene {
         // When the play button is clicked, go to the next scene
         playBtn.onClick = () => {
             this.sceneManager.changeToScene(Level1);
+            this.emitter.fireEvent(GameEventType.PLAY_SOUND, {key: MainMenu.MUSIC_KEY, loop: true, holdReference: true});
         }
 
         lvBtn.onClick = () => {

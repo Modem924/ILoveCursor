@@ -13,8 +13,9 @@ import { Controls } from "./hw4/AI/Controls";
         canvasSize: {x: 1024, y: 1024},          // The size of the game
         clearColor: {r: 0.1, g: 0.1, b: 0.1},   // The color the game clears to
         inputs: [
-            {name: Controls.MOVE_LEFT, keys: ["a"]},
-            {name: Controls.MOVE_RIGHT, keys: ["d"]},
+            //{name: Controls.CHEAT_CODE, keys: ["c"]},
+            //{name: Controls.MOVE_LEFT, keys: ["a"]},
+            //{name: Controls.MOVE_RIGHT, keys: ["d"]},
             {name: Controls.JUMP, keys: ["w", "space"]},
         ],
         useWebGL: false,                        // Tell the game we want to use webgl

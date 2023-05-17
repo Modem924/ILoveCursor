@@ -1,3 +1,4 @@
+/*
 import { PlayerStates, PlayerAnimations } from "../PlayerController";
 import Input from "../../../Wolfie2D/Input/Input";
 import { Controls } from "../Controls";
@@ -49,3 +50,4 @@ export default class Walk extends PlayerState {
 		return {};
 	}
 }
+*/

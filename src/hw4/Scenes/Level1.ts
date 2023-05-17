@@ -4,6 +4,8 @@ import Level from "./Level";
 import RenderingManager from "../../Wolfie2D/Rendering/RenderingManager";
 import SceneManager from "../../Wolfie2D/Scene/SceneManager";
 import Viewport from "../../Wolfie2D/SceneGraph/Viewport";
+import Level2 from "./Level2";
+
 /**
  * The first level for HW4 - should be the one with the grass and the clouds.
  */
@@ -24,7 +26,7 @@ export default class Level1 extends Level {
     public static readonly JUMP_AUDIO_KEY = "PLAYER_JUMP";
     public static readonly JUMP_AUDIO_PATH = "assets/audio/jump.wav";
 
-    public static readonly LEVEL_END = new AABB(new Vec2(224, 232), new Vec2(24, 16));
+    public static readonly LEVEL_END = new AABB(new Vec2(468, 33), new Vec2(50, 50));
 
 
     public constructor(viewport: Viewport, sceneManager: SceneManager, renderingManager: RenderingManager, options: Record<string, any>) {
@@ -42,9 +44,8 @@ export default class Level1 extends Level {
 
         this.levelMusicKey = Level1.LEVEL_MUSIC_KEY
         this.jumpAudioKey = Level1.JUMP_AUDIO_KEY;
-
-        this.levelEndPosition = new Vec2(200, 216).mult(this.tilemapScale);
-        this.levelEndHalfSize = new Vec2(32, 32).mult(this.tilemapScale);
+        this.levelEndPosition = new Vec2(468, 33).mult(this.tilemapScale);
+        this.levelEndHalfSize = new Vec2(50, 50).mult(this.tilemapScale);
     }
 
     /**
@@ -58,6 +59,7 @@ export default class Level1 extends Level {
         // Audio and music
         this.load.audio(this.levelMusicKey, Level1.LEVEL_MUSIC_PATH);
         this.load.audio(this.jumpAudioKey, Level1.JUMP_AUDIO_PATH);
+        
     }
 
     /**
@@ -72,6 +74,7 @@ export default class Level1 extends Level {
     public startScene(): void {
         super.startScene();
         // Set the next level to be Level2
+        this.nextLevel = Level2;
     }
 
     protected initializeViewport(): void {

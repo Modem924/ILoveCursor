@@ -58,20 +58,32 @@ export default abstract class Level extends Scene {
     /** The wall layer of the tilemap */
     protected walls: OrthogonalTilemap;
 
+    protected nextLevel: new (...args: any) => Scene;
     protected levelEndPosition: Vec2;
     protected levelEndHalfSize: Vec2;
     protected levelEndArea: Rect;
     protected levelEndTimer: Timer;
     protected levelEndLabel: Label;
 
+    protected levelTransitionTimer: Timer;
+    protected levelTransitionScreen: Rect;
 
     /** Sound and music */
     protected levelMusicKey: string;
     protected jumpAudioKey: string;
-    protected tileDestroyedAudioKey: string;
 
     public constructor(viewport: Viewport, sceneManager: SceneManager, renderingManager: RenderingManager, options: Record<string, any>) {
-        super(viewport, sceneManager, renderingManager, options)
+        super(viewport, sceneManager, renderingManager, {...options, physics: {
+            groupNames: [
+                PhysicsGroups.PLAYER,
+                PhysicsGroups.GROUND
+            ],
+            collisions:
+            [
+                [0,1],
+                [1,0]
+            ]
+        }});
     }
 
     public startScene(): void {
@@ -86,8 +98,23 @@ export default abstract class Level extends Scene {
 
         // Initialize the viewport - this must come after the player has been initialized
         this.initializeViewport();
+        this.subscribeToEvents();
+        this.initializeUI();
+
+        this.initializeLevelEnds();
         
 
+        this.levelTransitionTimer = new Timer(500);
+        this.levelEndTimer = new Timer(3000, () => {
+            // After the level end timer ends, fade to black and then go to the next scene
+            this.levelTransitionScreen.tweens.play("fadeIn");
+
+        });
+
+        
+
+        Input.disableInput();
+        this.levelTransitionScreen.tweens.play("fadeOut");
         // Start playing the level music for the HW4 level
         this.emitter.fireEvent(GameEventType.PLAY_SOUND, {key: this.levelMusicKey, loop: true, holdReference: true});
     }
@@ -107,10 +134,33 @@ export default abstract class Level extends Scene {
      */
     protected handleEvent(event: GameEvent): void {
         switch (event.type) {
+            case Events.PLAYER_ENTERED_LEVEL_END: {
+                this.handleEnteredLevelEnd();
+                break;
+            }
+            // When the level starts, reenable user input
+            case Events.LEVEL_START: {
+                Input.enableInput();
+                break;
+            }
+            // When the level ends, change the scene to the next level
+            case Events.LEVEL_END: {
+                this.emitter.fireEvent(GameEventType.STOP_SOUND, {key: this.levelMusicKey});
+                this.sceneManager.changeToScene(this.nextLevel);
+                break;
+            }
             // Default: Throw an error! No unhandled events allowed.
             default: {
                 throw new Error(`Unhandled event caught in scene with type ${event.type}`)
             }
+        }
+    }
+
+    protected handleEnteredLevelEnd(): void {
+        // If the timer hasn't run yet, start the end level animation
+        if (!this.levelEndTimer.hasRun() && this.levelEndTimer.isStopped()) {
+            this.levelEndTimer.start();
+            
         }
     }
 
@@ -144,9 +194,75 @@ export default abstract class Level extends Scene {
      * Handles all subscriptions to events
      */
     protected subscribeToEvents(): void {
+        this.receiver.subscribe(Events.PLAYER_ENTERED_LEVEL_END);
+        this.receiver.subscribe(Events.LEVEL_START);
         this.receiver.subscribe(Events.LEVEL_END);
     }
 
+    protected initializeUI(): void {
+        this.levelEndLabel = <Label>this.add.uiElement(UIElementType.LABEL, HW3Layers.UI, { position: new Vec2(-200, 100), text: "Level Complete" });
+        this.levelEndLabel.size.set(1200, 1200);
+        this.levelEndLabel.borderRadius = 0;
+        this.levelEndLabel.backgroundColor = new Color(20, 40, 52);
+        this.levelEndLabel.textColor = Color.WHITE;
+        this.levelEndLabel.fontSize = 48;
+        this.levelEndLabel.font = "PixelSimple";
+        this.levelEndLabel.tweens.add("slideIn", {
+            startDelay: 0,
+            duration: 1000,
+            effects: [
+                {
+                    property: TweenableProperties.posX,
+                    start: -300,
+                    end: 300,
+                    ease: EaseFunctionType.OUT_SINE
+                }
+            ]
+        });
+        this.levelTransitionScreen = <Rect>this.add.graphic(GraphicType.RECT, HW3Layers.UI, { position: new Vec2(300, 200), size: new Vec2(600, 400) });
+        this.levelTransitionScreen.color = new Color(34, 32, 52);
+        this.levelTransitionScreen.alpha = 1;
+
+        this.levelTransitionScreen.tweens.add("fadeIn", {
+            startDelay: 0,
+            duration: 1000,
+            effects: [
+                {
+                    property: TweenableProperties.alpha,
+                    start: 0,
+                    end: 1,
+                    ease: EaseFunctionType.IN_OUT_QUAD
+                }
+            ],
+            onEnd: Events.LEVEL_END
+        });
+        this.levelTransitionScreen.tweens.add("fadeOut", {
+            startDelay: 0,
+            duration: 1000,
+            effects: [
+                {
+                    property: TweenableProperties.alpha,
+                    start: 1,
+                    end: 0,
+                    ease: EaseFunctionType.IN_OUT_QUAD
+                }
+            ],
+            onEnd: Events.LEVEL_START
+        });
+
+    }
+
+    protected initializeLevelEnds(): void {
+        if (!this.layers.has(HW3Layers.PRIMARY)) {
+            throw new Error("Can't initialize the level ends until the primary layer has been added to the scene!");
+        }
+        
+        this.levelEndArea = <Rect>this.add.graphic(GraphicType.RECT, HW3Layers.PRIMARY, { position: this.levelEndPosition, size: this.levelEndHalfSize });
+        this.levelEndArea.addPhysics(undefined, undefined, false, true);
+        this.levelEndArea.setTrigger(PhysicsGroups.PLAYER, Events.PLAYER_ENTERED_LEVEL_END, null);
+        this.levelEndArea.color = new Color(255, 0, 255, .20);
+        
+    }
     /**
      * Initializes the player, setting the player's initial position to the given position.
      * @param position the player's spawn position
@@ -182,6 +298,7 @@ export default abstract class Level extends Scene {
 
     // Get the key of the player's jump audio file
     public getJumpAudioKey(): string {
+        this.emitter.fireEvent(GameEventType.PLAY_SOUND, {key: this.levelMusicKey, loop: true, holdReference: true});
         return this.jumpAudioKey
     }
 }

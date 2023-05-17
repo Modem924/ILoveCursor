@@ -6,15 +6,16 @@ import Color from "../../Wolfie2D/Utils/Color";
 import Sprite from "../../Wolfie2D/Nodes/Sprites/Sprite";
 import MainMenu from "./MainMenu";
 import Level1 from "./Level1";
+import Level2 from "./Level2";
 
 
 export const LevelLayers = {
     LEVEL1: "LEVEL1",
     LEVEL2: "LEVEL2",
-    LEVEL3: "LEVEL3",
-    LEVEL4: "LEVEL4",
-    LEVEL5: "LEVEL5",
-    LEVEL6: "LEVEL6"
+    //LEVEL3: "LEVEL3",
+    //LEVEL4: "LEVEL4",
+    //LEVEL5: "LEVEL5",
+    //LEVEL6: "LEVEL6"
 } as const;
 
 
@@ -37,10 +38,10 @@ export default class levelSelect extends Scene {
 
         this.addUILayer(LevelLayers.LEVEL1);
         this.addUILayer(LevelLayers.LEVEL2);
-        this.addUILayer(LevelLayers.LEVEL3);
-        this.addUILayer(LevelLayers.LEVEL4);
-        this.addUILayer(LevelLayers.LEVEL5);
-        this.addUILayer(LevelLayers.LEVEL6);
+       // this.addUILayer(LevelLayers.LEVEL3);
+        //this.addUILayer(LevelLayers.LEVEL4);
+       // this.addUILayer(LevelLayers.LEVEL5);
+       // this.addUILayer(LevelLayers.LEVEL6);
 
         let lv1Btn = <Button>this.add.uiElement(UIElementType.BUTTON, LevelLayers.LEVEL1, {position: new Vec2(size.x - 100, size.y - 100), text: "Level 1"});
         lv1Btn.backgroundColor = Color.GREEN;
@@ -59,6 +60,8 @@ export default class levelSelect extends Scene {
         lv2Btn.setPadding(new Vec2(50, 10));
         lv2Btn.font = "PixelSimple";
         lv2Btn.size = new Vec2(150,50);
+
+        /*
 
         let lv3Btn = <Button>this.add.uiElement(UIElementType.BUTTON, LevelLayers.LEVEL3, {position: new Vec2(size.x - 100, size.y), text: "Level 3"});
         lv3Btn.backgroundColor = Color.GREEN;
@@ -95,6 +98,7 @@ export default class levelSelect extends Scene {
         lv6Btn.setPadding(new Vec2(50, 10));
         lv6Btn.font = "PixelSimple";
         lv6Btn.size = new Vec2(150,50);
+        */
 
         let backBtn = <Button>this.add.uiElement(UIElementType.BUTTON, LevelLayers.LEVEL1, {position: new Vec2(size.x, size.y + 200 ), text: "Back"});
         backBtn.backgroundColor = Color.GREEN;
@@ -114,25 +118,8 @@ export default class levelSelect extends Scene {
         }
         
         lv2Btn.onClick = () => {
-            this.sceneManager.changeToScene(MainMenu);
+            this.sceneManager.changeToScene(Level2);
         }
-
-        lv3Btn.onClick = () => {
-            this.sceneManager.changeToScene(MainMenu);
-        }
-
-        lv4Btn.onClick = () => {
-            this.sceneManager.changeToScene(MainMenu);
-        }
-
-        lv5Btn.onClick = () => {
-            this.sceneManager.changeToScene(MainMenu);
-        }
-
-        lv6Btn.onClick = () => {
-            this.sceneManager.changeToScene(MainMenu);
-        }
-
     }
     
 }

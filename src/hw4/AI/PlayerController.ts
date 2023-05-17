@@ -5,7 +5,7 @@ import OrthogonalTilemap from "../../Wolfie2D/Nodes/Tilemaps/OrthogonalTilemap";
 import Fall from "./PlayerStates2/Fall";
 import Idle from "./PlayerStates2/Idle";
 import Jump from "./PlayerStates2/Jump";
-import Run from "./PlayerStates2/Walk";
+//import Run from "./PlayerStates2/Walk";
 
 import Input from "../../Wolfie2D/Input/Input";
 
@@ -19,8 +19,8 @@ import Timer from "../../Wolfie2D/Timing/Timer";
 
 export const PlayerAnimations = {
     IDLE: "IDLE",
-    WALK_RIGHT: "WALK_RIGHT",
-    WALK_LEFT: "WALK_LEFT",
+    //WALK_RIGHT: "WALK_RIGHT",
+    //WALK_LEFT: "WALK_LEFT",
     JUMP: "JUMP",
 } as const
 
@@ -29,7 +29,7 @@ export const PlayerAnimations = {
  */
 export const PlayerStates = {
     IDLE: "IDLE",
-    RUN: "RUN",
+    //RUN: "RUN",
 	JUMP: "JUMP",
     FALL: "FALL"
 } as const
@@ -63,7 +63,7 @@ export default class PlayerController2 extends StateMachineAI {
 
         // Add the different states the player can be in to the PlayerController 
 		this.addState(PlayerStates.IDLE, new Idle(this, this.owner));
-		this.addState(PlayerStates.RUN, new Run(this, this.owner));
+		//this.addState(PlayerStates.RUN, new Run(this, this.owner));
         this.addState(PlayerStates.JUMP, new Jump(this, this.owner));
         this.addState(PlayerStates.FALL, new Fall(this, this.owner));
         // Start the player in the Idle state
@@ -75,7 +75,7 @@ export default class PlayerController2 extends StateMachineAI {
 	 */
     public get inputDir(): Vec2 {
         let direction = Vec2.ZERO;
-		direction.x = (Input.isPressed(Controls.MOVE_LEFT) ? -1 : 0) + (Input.isPressed(Controls.MOVE_RIGHT) ? 1 : 0);
+		//direction.x = (Input.isPressed(Controls.MOVE_LEFT) ? -1 : 0) + (Input.isPressed(Controls.MOVE_RIGHT) ? 1 : 0);
 		direction.y = (Input.isJustPressed(Controls.JUMP) ? -1 : 0);
 		return direction;
     }
