@@ -20,7 +20,7 @@ import { Controls } from "./hw4/AI/Controls";
             {name: PlayerInput.MOVE_RIGHT, keys: ["d"]},
             {name: Controls.MOVE_LEFT, keys: ["a"]},
             {name: Controls.MOVE_RIGHT, keys: ["d"]},
-            {name: Controls.JUMP, keys: ["w", "space"]}
+            {name: Controls.JUMP, keys: ["w", "space"]},
         ],
         useWebGL: false,                        // Tell the game we want to use webgl
         showDebug: false                      // Whether to show debug messages. You can change this to true if you want

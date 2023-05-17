@@ -60,7 +60,6 @@ export default class PlayerController2 extends StateMachineAI {
 		this.addState(PlayerStates.RUN, new Run(this, this.owner));
         this.addState(PlayerStates.JUMP, new Jump(this, this.owner));
         this.addState(PlayerStates.FALL, new Fall(this, this.owner));
-        
         // Start the player in the Idle state
         this.initialize(PlayerStates.IDLE);
     }

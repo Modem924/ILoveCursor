@@ -41,10 +41,11 @@ export default abstract class Scene2 extends Scene {
     protected player: AnimatedSprite;
     /** The player's spawn position */
     protected playerSpawn: Vec2;
-    //protected levelEndPosition: Vec2;
-    //protected levelEndHalfSize: Vec2;
-    //protected levelEndArea: Rect;
+    protected levelEndPosition: Vec2;
+    protected levelEndHalfSize: Vec2;
+    protected levelEndArea: Rect;
     protected nextLevel: new (...args: any) => Scene;
+    protected levelTransitionScreen: Rect;
 
     protected tilemapKey: string;
     protected wallsLayerKey: string;
@@ -53,17 +54,20 @@ export default abstract class Scene2 extends Scene {
     protected walls: OrthogonalTilemap;
 
     public constructor(viewport: Viewport, sceneManager: SceneManager, renderingManager: RenderingManager, options: Record<string, any>) {
-        super(viewport, sceneManager, renderingManager, options)
+        super(viewport, sceneManager, renderingManager, options);
     }
+
 
     public startScene(): void {
         this.initLayers();
         this.initializeTilemap();
         this.initializePlayer(this.playerSpriteKey);
         this.initializeViewport();
-        //this.subscribeToEvents();
-       // this.initializeLevelEnds();
-/*
+        this.subscribeToEvents();
+        this.initializeLevelEnds();
+
+
+/*      
         this.levelTransitionTimer = new Timer(500);
         this.levelEndTimer = new Timer(3000, () => {
             // After the level end timer ends, fade to black and then go to the next scene
@@ -86,7 +90,6 @@ export default abstract class Scene2 extends Scene {
       protected handleEvent(event: GameEvent): void {
         switch (event.type) {
             case Events.PLAYER_ENTERED_LEVEL_END: {
-                //this.handleEnteredLevelEnd();
                 break;
             }
             // When the level starts, reenable user input
@@ -105,14 +108,8 @@ export default abstract class Scene2 extends Scene {
             }
         }
     }
-/*
-    protected handleEnteredLevelEnd(): void {
-        // If the timer hasn't run yet, start the end level animation
-        if (!this.levelEndTimer.hasRun() && this.levelEndTimer.isStopped()) {
-            this.levelEndTimer.start();
-        }
-    }
-*/
+
+
     protected initLayers(): void {
         // Add a layer for UI
         this.addUILayer(Layers.UI);
@@ -133,13 +130,13 @@ export default abstract class Scene2 extends Scene {
         this.add.tilemap(this.tilemapKey, this.tilemapScale);
         this.walls = this.getTilemap(this.wallsLayerKey) as OrthogonalTilemap;
     }
-/*
+
     protected subscribeToEvents(): void {
         this.receiver.subscribe(Events.PLAYER_ENTERED_LEVEL_END);
         this.receiver.subscribe(Events.LEVEL_START);
         this.receiver.subscribe(Events.LEVEL_END);
     }
-*/
+
     protected initializePlayer(key: string): void {
         if (this.playerSpawn === undefined) {
             throw new Error("Player spawn must be set before initializing the player!");
@@ -161,10 +158,10 @@ export default abstract class Scene2 extends Scene {
             throw new Error("Player must be initialized before setting the viewport to folow the player");
         }
         this.viewport.follow(this.player);
-        this.viewport.setZoomLevel(2);
+        this.viewport.setZoomLevel(6);
         this.viewport.setBounds(0, 0, 512, 512);
     }
-/*
+
     protected initializeLevelEnds(): void {
         if (!this.layers.has(Layers.PRIMARY)) {
             throw new Error("Can't initialize the level ends until the primary layer has been added to the scene!");
@@ -176,5 +173,5 @@ export default abstract class Scene2 extends Scene {
         this.levelEndArea.color = new Color(255, 0, 255, .20);
         
     }
-    */
+
 }

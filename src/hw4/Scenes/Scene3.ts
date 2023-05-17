@@ -7,20 +7,19 @@ import Viewport from "../../Wolfie2D/SceneGraph/Viewport";
 
 export default class Scene3 extends Scene2 {
 
-    public static readonly PLAYER_SPAWN = new Vec2(100, 100);
+    public static readonly PLAYER_SPAWN = new Vec2(50, 50);
     public static readonly PLAYER_SPRITE_KEY = "PLAYER_SPRITE_KEY";
     public static readonly PLAYER_SPRITE_PATH = "assets/spritesheets/player1.json";
 
     public static readonly TILEMAP_KEY = "LEVEL1";
     public static readonly TILEMAP_PATH = "assets/tilemaps/tilemap.json";
-    public static readonly TILEMAP_SCALE = new Vec2(2, 2);
+    public static readonly TILEMAP_SCALE = new Vec2(1, 1);
     public static readonly WALLS_LAYER_KEY = "Main";
 
-    //public static readonly LEVEL_END = new AABB(new Vec2(224, 232), new Vec2(24, 16));
+    public static readonly LEVEL_END = new AABB(new Vec2(194, 197), new Vec2(24, 16));
 
     public constructor(viewport: Viewport, sceneManager: SceneManager, renderingManager: RenderingManager, options: Record<string, any>) {
         super(viewport, sceneManager, renderingManager, options);
-
         // Set the keys for the different layers of the tilemap
         this.tilemapKey = Scene3.TILEMAP_KEY;
         this.tilemapScale = Scene3.TILEMAP_SCALE;
@@ -33,8 +32,8 @@ export default class Scene3 extends Scene2 {
 
 
         // Level end size and position
-        //this.levelEndPosition = new Vec2(32, 216).mult(this.tilemapScale);
-        //this.levelEndHalfSize = new Vec2(32, 32).mult(this.tilemapScale);
+        this.levelEndPosition = new Vec2(194, 197).mult(this.tilemapScale);
+        this.levelEndHalfSize = new Vec2(32, 32).mult(this.tilemapScale);
     }
 
     /**
@@ -68,7 +67,7 @@ export default class Scene3 extends Scene2 {
     protected initializeViewport(): void {
 
         super.initializeViewport();
-        this.viewport.setZoomLevel(2);
+        this.viewport.setZoomLevel(6);
         this.viewport.setBounds(0, 0, 512, 512);
     }
 
