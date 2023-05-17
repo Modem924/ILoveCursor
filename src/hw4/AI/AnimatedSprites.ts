@@ -1,5 +1,5 @@
 import AnimatedSprite from "../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
-import Level from "../Scenes/Level1";
+import Level from "../Scenes/Level";
 
 /**
  * An animated sprite in the HW3Level. I have extended the animated sprite to create a more specific sprite
