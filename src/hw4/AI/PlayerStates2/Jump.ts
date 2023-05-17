@@ -11,6 +11,8 @@ export default class Jump extends PlayerState {
 
 
 	public onEnter(options: Record<string, any>): void {
+        let jumpAudio = this.owner.getScene().getJumpAudioKey();
+        this.emitter.fireEvent(GameEventType.PLAY_SOUND, {key: jumpAudio, loop: false, holdReference: false});
         this.owner.animation.play(PlayerAnimations.JUMP);
         this.parent.velocity.y = -250;
 	}

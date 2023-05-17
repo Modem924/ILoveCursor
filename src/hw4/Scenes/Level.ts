@@ -102,6 +102,7 @@ export default abstract class Level extends Scene {
         this.initializeUI();
 
         this.initializeLevelEnds();
+        this.initializeTimer();
         
 
         this.levelTransitionTimer = new Timer(500);
@@ -160,7 +161,6 @@ export default abstract class Level extends Scene {
         // If the timer hasn't run yet, start the end level animation
         if (!this.levelEndTimer.hasRun() && this.levelEndTimer.isStopped()) {
             this.levelEndTimer.start();
-            
         }
     }
 
@@ -298,7 +298,6 @@ export default abstract class Level extends Scene {
 
     // Get the key of the player's jump audio file
     public getJumpAudioKey(): string {
-        this.emitter.fireEvent(GameEventType.PLAY_SOUND, {key: this.levelMusicKey, loop: true, holdReference: true});
         return this.jumpAudioKey
     }
 }
