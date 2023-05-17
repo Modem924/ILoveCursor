@@ -5,6 +5,7 @@ import Scene from "../../Wolfie2D/Scene/Scene";
 import Color from "../../Wolfie2D/Utils/Color";
 import Label from "../../Wolfie2D/Nodes/UIElements/Label";
 import MainScene from "./MainScene";
+import Scene3 from "./Scene3";
 import GameEvent from "../../Wolfie2D/Events/GameEvent";
 
 export default class MainMenu extends Scene {
@@ -41,7 +42,7 @@ export default class MainMenu extends Scene {
     public handleEvent(event: GameEvent): void {
         switch(event.type) {
             case "play": {
-                this.sceneManager.changeToScene(MainScene);
+                this.sceneManager.changeToScene(Scene3);
                 break;
             }
         }

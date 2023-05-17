@@ -1,6 +1,6 @@
-import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
-import Input from "../../../Wolfie2D/Input/Input";
-import AnimatedSprite from "../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
+import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
+import Input from "../../Wolfie2D/Input/Input";
+import AnimatedSprite from "../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 
 export enum PlayerInput {
     MOVE_UP = "MOVE_UP",
@@ -9,7 +9,7 @@ export enum PlayerInput {
     MOVE_RIGHT = "MOVE_RIGHT"
 }
 
-export default class PlayerController {
+export default class PlayerController1 {
     protected owner: AnimatedSprite;
 
     constructor(owner: AnimatedSprite) {
@@ -32,7 +32,9 @@ export default class PlayerController {
      * mouse around the player
      * @return a Vec2 representing the direction the player should face.
      */
-    public get faceDir(): Vec2 { return this.owner.position.dirTo(Input.getGlobalMousePosition()); }
+    public get faceDir(): Vec2 {
+        return this.owner.position.dirTo(Input.getGlobalMousePosition()); 
+    }
 
     /**
      * Gets the rotation of the players sprite based on the direction the player

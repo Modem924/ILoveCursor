@@ -1,10 +1,10 @@
-import StateMachineAI from "../../../Wolfie2D/AI/StateMachineAI";
-import AI from "../../../Wolfie2D/DataTypes/Interfaces/AI";
-import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
-import GameEvent from "../../../Wolfie2D/Events/GameEvent";
-import PlayerActor from "../../Actors/PlayerActor";
-import PlayerController from "../PlayerController1";
-import { Idle, Walking, PlayerStateType } from "../PlayerStates1/PlayerState";
+import StateMachineAI from "../../Wolfie2D/AI/StateMachineAI";
+import AI from "../../Wolfie2D/DataTypes/Interfaces/AI";
+import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
+import GameEvent from "../../Wolfie2D/Events/GameEvent";
+import PlayerActor from "../Actors/PlayerActor";
+import PlayerController from "./PlayerController1";
+import { Idle, Walking, PlayerStateType } from "./PlayerStates1/PlayerState";
 
 /**
  * The AI that controls the player. The players AI has been configured as a Finite State Machine (FSM)

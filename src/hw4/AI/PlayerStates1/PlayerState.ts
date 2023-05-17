@@ -1,5 +1,5 @@
-import State from "../../../../Wolfie2D/DataTypes/State/State";
-import GameEvent from "../../../../Wolfie2D/Events/GameEvent";
+import State from "../../../Wolfie2D/DataTypes/State/State";
+import GameEvent from "../../../Wolfie2D/Events/GameEvent";
 import PlayerAI from "../PlayerAI";
 
 
@@ -46,5 +46,5 @@ export default abstract class PlayerState extends State {
 
 import Idle from "./Idle";
 import Walking from "./Walking";
-import PlayerActor from "../../../Actors/PlayerActor";
+import PlayerActor from "../../Actors/PlayerActor";
 export { Idle, Walking} 

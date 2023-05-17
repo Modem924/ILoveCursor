@@ -17,7 +17,7 @@ export default class PlayerActor extends AnimatedSprite {
     public override getScene(): MainScene { return this.scene; }
 
     get speed(): number {
-        return this.speed;
+        return this.speed * 10;
     }
     set speed(value: number) {
         this.speed = value;

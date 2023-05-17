@@ -1,6 +1,8 @@
 import Game from "./Wolfie2D/Loop/Game";
 import MainMenu from "./hw4/Scenes/MainMenu";
-import { PlayerInput } from "./hw4/AI/Player/PlayerController";
+import { PlayerInput } from "./hw4/AI/PlayerController1";
+import { Controls } from "./hw4/AI/Controls";
+
 
 // The main function is your entrypoint into Wolfie2D. Specify your first scene and any options here.
 (function main(){
@@ -15,7 +17,10 @@ import { PlayerInput } from "./hw4/AI/Player/PlayerController";
             {name: PlayerInput.MOVE_UP, keys: ["w"]},
             {name: PlayerInput.MOVE_DOWN, keys: ["s"]},
             {name: PlayerInput.MOVE_LEFT, keys: ["a"]},
-            {name: PlayerInput.MOVE_RIGHT, keys: ["d"]}
+            {name: PlayerInput.MOVE_RIGHT, keys: ["d"]},
+            {name: Controls.MOVE_LEFT, keys: ["a"]},
+            {name: Controls.MOVE_RIGHT, keys: ["d"]},
+            {name: Controls.JUMP, keys: ["w", "space"]}
         ],
         useWebGL: false,                        // Tell the game we want to use webgl
         showDebug: false                      // Whether to show debug messages. You can change this to true if you want
