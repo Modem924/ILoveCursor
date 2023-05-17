@@ -12,7 +12,7 @@ export default class Jump extends PlayerState {
 
 	public onEnter(options: Record<string, any>): void {
         this.owner.animation.play(PlayerAnimations.JUMP);
-        this.parent.velocity.y = -300;
+        this.parent.velocity.y = -250;
 	}
     
 

@@ -5,6 +5,7 @@ import Scene from "../../Wolfie2D/Scene/Scene";
 import Color from "../../Wolfie2D/Utils/Color";
 import Sprite from "../../Wolfie2D/Nodes/Sprites/Sprite";
 import MainMenu from "./MainMenu";
+import Level1 from "./Level1";
 
 
 export const LevelLayers = {
@@ -109,7 +110,7 @@ export default class levelSelect extends Scene {
         }
 
         lv1Btn.onClick = () => {
-            this.sceneManager.changeToScene(MainMenu);
+            this.sceneManager.changeToScene(Level1);
         }
         
         lv2Btn.onClick = () => {

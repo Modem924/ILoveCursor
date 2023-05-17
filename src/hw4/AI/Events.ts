@@ -2,7 +2,6 @@
  * A set of events for HW4
  */
  export const Events = {
-    PLAYER: "PLAYER",
-    GROUND: "GROUND"
+    LEVEL_END: "LEVEN_END"
     
 } as const;

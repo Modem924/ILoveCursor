@@ -1,13 +1,10 @@
 import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
-import { GameEventType } from "../../Wolfie2D/Events/GameEventType";
 import Button from "../../Wolfie2D/Nodes/UIElements/Button";
 import { UIElementType } from "../../Wolfie2D/Nodes/UIElements/UIElementTypes";
 import Scene from "../../Wolfie2D/Scene/Scene";
 import Color from "../../Wolfie2D/Utils/Color";
 import Sprite from "../../Wolfie2D/Nodes/Sprites/Sprite";
 import Level1 from "./Level1";
-import Label from "../../Wolfie2D/Nodes/UIElements/Label"
-import UIElement from "../../Wolfie2D/Nodes/UIElement";
 import { MenuLayers } from "./MenuLayers";
 import control from "./control";
 import levelSelect from "./levelSelect";
