@@ -1,9 +1,10 @@
 import AABB from "../../Wolfie2D/DataTypes/Shapes/AABB";
 import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
-import Scene2 from "./Scene2";
+import Scene2 from "./Level1";
 import RenderingManager from "../../Wolfie2D/Rendering/RenderingManager";
 import SceneManager from "../../Wolfie2D/Scene/SceneManager";
 import Viewport from "../../Wolfie2D/SceneGraph/Viewport";
+import Input from "../../Wolfie2D/Input/Input";
 
 export default class Scene3 extends Scene2 {
 
@@ -57,7 +58,6 @@ export default class Scene3 extends Scene2 {
         super.startScene();
         // Set the next level to be Level2
     }
-
     /**
      * I had to override this method to adjust the viewport for the first level. I screwed up 
      * when I was making the tilemap for the first level is what it boils down to.

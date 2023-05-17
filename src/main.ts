@@ -1,5 +1,5 @@
 import Game from "./Wolfie2D/Loop/Game";
-import MainMenu from "./hw4/Scenes/MainMenu";
+import splash from "./hw4/Scenes/splash";
 import { PlayerInput } from "./hw4/AI/PlayerController1";
 import { Controls } from "./hw4/AI/Controls";
 
@@ -32,7 +32,7 @@ import { Controls } from "./hw4/AI/Controls";
     const game = new Game(options);
 
     // Start our game
-    game.start(MainMenu, {});
+    game.start(splash, {});
 
 })();
 

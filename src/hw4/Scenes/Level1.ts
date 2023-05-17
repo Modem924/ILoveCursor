@@ -41,11 +41,6 @@ export default abstract class Scene2 extends Scene {
     protected player: AnimatedSprite;
     /** The player's spawn position */
     protected playerSpawn: Vec2;
-    protected levelEndPosition: Vec2;
-    protected levelEndHalfSize: Vec2;
-    protected levelEndArea: Rect;
-    protected nextLevel: new (...args: any) => Scene;
-    protected levelTransitionScreen: Rect;
 
     protected tilemapKey: string;
     protected wallsLayerKey: string;
@@ -63,7 +58,6 @@ export default abstract class Scene2 extends Scene {
         this.initializeTilemap();
         this.initializePlayer(this.playerSpriteKey);
         this.initializeViewport();
-        this.subscribeToEvents();
         this.initializeLevelEnds();
 
 
@@ -89,19 +83,6 @@ export default abstract class Scene2 extends Scene {
      */
       protected handleEvent(event: GameEvent): void {
         switch (event.type) {
-            case Events.PLAYER_ENTERED_LEVEL_END: {
-                break;
-            }
-            // When the level starts, reenable user input
-            case Events.LEVEL_START: {
-                Input.enableInput();
-                break;
-            }
-            // When the level ends, change the scene to the next level
-            case Events.LEVEL_END: {
-                this.sceneManager.changeToScene(this.nextLevel);
-                break;
-            }
             // Default: Throw an error! No unhandled events allowed.
             default: {
                 throw new Error(`Unhandled event caught in scene with type ${event.type}`)
@@ -129,12 +110,6 @@ export default abstract class Scene2 extends Scene {
         // Add the tilemap to the scene
         this.add.tilemap(this.tilemapKey, this.tilemapScale);
         this.walls = this.getTilemap(this.wallsLayerKey) as OrthogonalTilemap;
-    }
-
-    protected subscribeToEvents(): void {
-        this.receiver.subscribe(Events.PLAYER_ENTERED_LEVEL_END);
-        this.receiver.subscribe(Events.LEVEL_START);
-        this.receiver.subscribe(Events.LEVEL_END);
     }
 
     protected initializePlayer(key: string): void {
@@ -166,12 +141,6 @@ export default abstract class Scene2 extends Scene {
         if (!this.layers.has(Layers.PRIMARY)) {
             throw new Error("Can't initialize the level ends until the primary layer has been added to the scene!");
         }
-        
-        this.levelEndArea = <Rect>this.add.graphic(GraphicType.RECT, Layers.PRIMARY, { position: this.levelEndPosition, size: this.levelEndHalfSize });
-        this.levelEndArea.addPhysics(undefined, undefined, false, true);
-        this.levelEndArea.setTrigger(PhysicsGroups.PLAYER, Events.PLAYER_ENTERED_LEVEL_END, null);
-        this.levelEndArea.color = new Color(255, 0, 255, .20);
-        
     }
 
 }

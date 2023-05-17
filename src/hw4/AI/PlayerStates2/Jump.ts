@@ -2,16 +2,21 @@ import GameEvent from "../../../Wolfie2D/Events/GameEvent";
 import { GameEventType } from "../../../Wolfie2D/Events/GameEventType";
 import { PlayerStates, PlayerAnimations } from "../PlayerController2";
 import Input from "../../../Wolfie2D/Input/Input"
-
+import Timer from "../../../Wolfie2D/Timing/Timer";
 import PlayerState from "./PlayerState";
 import { Controls } from "../Controls";
+import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 
 export default class Jump extends PlayerState {
 
+
 	public onEnter(options: Record<string, any>): void {
         this.owner.animation.play(PlayerAnimations.JUMP);
-        this.parent.velocity.y = -200;
+        this.parent.velocity.y = -300;
 	}
+    
+
+    public get faceDir(): Vec2 { return this.owner.position.dirTo(Input.getGlobalMousePosition()); }
 
 	public update(deltaT: number): void {
         // Update the direction the player is facing
@@ -30,7 +35,7 @@ export default class Jump extends PlayerState {
             // Get the input direction from the player
             let dir = this.parent.inputDir;
             // Update the horizontal velocity of the player
-            this.parent.velocity.x += dir.x * this.parent.speed/3.5 - 0.3*this.parent.velocity.x;
+            this.parent.velocity.x += this.faceDir.x * this.parent.speed/3.5 - 0.3*this.parent.velocity.x;
             // Update the vertical velocity of the player
             this.parent.velocity.y += this.gravity*deltaT;
             // Move the player
